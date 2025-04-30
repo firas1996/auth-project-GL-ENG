@@ -3,6 +3,7 @@ import { useEffect, useReducer, useState } from "react";
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import axios from "axios";
 
 const emailReducer = (prevState, actions) => {
   if (actions.name === "USER_TYPING") {
@@ -49,21 +50,27 @@ const Login = (props) => {
     isValid: null,
   });
 
-  // const max=(a,b)=>{
-  //   let max=a
-  //   if(max<b){
-  //     max=b
-  //   }
-  //   return max
-  // }
+  const testLogin = async () => {
+    try {
+      const res = await axios.post("http://10.33.0.3:7900/users/login", {
+        email: email.value,
+        password: password.value,
+      });
+      // const res = await axios.get("http://10.33.0.3:7900/users");
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      console.log("aaa");
+      // console.log("aaa");
       setFormIsValid(email.isValid && password.isValid);
     }, 1000);
     return () => {
       clearTimeout(timer);
-      console.log("zzz");
+      // console.log("zzz");
     };
   }, [email.isValid, password.isValid]);
 
@@ -98,7 +105,8 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(email.value, password.value);
+    // props.onLogin(email.value, password.value);
+    testLogin();
   };
 
   return (
