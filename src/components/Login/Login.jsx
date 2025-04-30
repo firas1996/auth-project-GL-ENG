@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -11,21 +11,41 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  // const max=(a,b)=>{
+  //   let max=a
+  //   if(max<b){
+  //     max=b
+  //   }
+  //   return max
+  // }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("aaa");
+      setFormIsValid(
+        enteredEmail.includes("@") && enteredPassword.trim().length > 6
+      );
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+      console.log("zzz");
+    };
+  }, [enteredEmail, enteredPassword]);
+
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
-    console.log("aaa");
-    setFormIsValid(
-      event.target.value.includes("@") && enteredPassword.trim().length > 6
-    );
+    // console.log("aaa");
+    // setFormIsValid(
+    //   event.target.value.includes("@") && enteredPassword.trim().length > 6
+    // );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
 
-    console.log("aaa");
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes("@")
-    );
+    // console.log("aaa");
+    // setFormIsValid(
+    //   event.target.value.trim().length > 6 && enteredEmail.includes("@")
+    // );
   };
 
   const validateEmailHandler = () => {
