@@ -52,6 +52,20 @@ const Login = () => {
     isValid: null,
   });
 
+  const testLogin2 = () => {
+    axios
+      .post("http://10.33.0.3:7900/users/login", {
+        email: email.value,
+        password: password.value,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const testLogin = async () => {
     try {
       const res = await axios.post("http://10.33.0.3:7900/users/login", {
@@ -67,12 +81,12 @@ const Login = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // console.log("aaa");
+      console.log("aaa");
       setFormIsValid(email.isValid && password.isValid);
-    }, 1000);
+    }, 333);
     return () => {
       clearTimeout(timer);
-      // console.log("zzz");
+      console.log("zzz");
     };
   }, [email.isValid, password.isValid]);
 
